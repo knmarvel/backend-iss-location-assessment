@@ -43,11 +43,14 @@ def draw_iss(coords):
     iss_turtle.screen.title("ISS locator")
     iss_turtle.penup()
     iss_turtle.goto(coords[0], coords[1])
-    iss_over_indy()
-    turtle.done()
+    iss_over_indy(screen)
+    if screen is not None:
+        print('Click on screen to exit ...')
+        screen.exitonclick()
+    
 
 
-def iss_over_indy():
+def iss_over_indy(screen):
     """establishes a dot over Indianapolis with the title
     of the date and time the ISS will next pass over Indy"""
     pass_api = "http://api.open-notify.org/iss-pass.json?"
@@ -56,21 +59,15 @@ def iss_over_indy():
     coords = requests.get("{}lat={}&lon={}".format(
         pass_api, kenzie_lat, kenzie_longi))
     coords = coords.json()
-    pass_time = time.ctime(coords[u'request'][u'datetime'])
-    screen = turtle.Screen()
+    pass_time = time.ctime(coords[u'response'][0]["risetime"])
     kenzie_turtle = turtle.Turtle()
     kenzie_turtle.shape("circle")
     kenzie_turtle.color("yellow", "yellow")
-    kenzie_turtle.screen.bgpic("map.gif")
-    screen.setworldcoordinates(-180, -180, 180, 180)
-    kenzie_turtle.screen.title("When wil the ISS next be over Kenzie campus?")
     kenzie_turtle.penup()
     kenzie_turtle.goto(kenzie_longi, kenzie_lat)
     kenzie_turtle.pendown()
     kenzie_turtle.write(pass_time, align=("left"), font=(30))
     kenzie_turtle.penup()
-    kenzie_turtle.goto(kenzie_longi, kenzie_lat)
-    turtle.done()
 
 
 def main():
