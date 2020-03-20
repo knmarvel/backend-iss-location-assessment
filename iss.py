@@ -36,18 +36,19 @@ def draw_iss(coords):
     be over Indy."""
     screen = turtle.Screen()
     screen.register_shape("iss.gif")
-    screen.setworldcoordinates(-180, -180, 180, 180)
+    screen.setup(width=720, height=360)
+    screen.setworldcoordinates(-180, -90, 180, 90)
     iss_turtle = turtle.Turtle()
     iss_turtle.shape("iss.gif")
     iss_turtle.screen.bgpic("map.gif")
     iss_turtle.screen.title("ISS locator")
     iss_turtle.penup()
     iss_turtle.goto(coords[0], coords[1])
+    iss_turtle.pendown()
     iss_over_indy(screen)
     if screen is not None:
         print('Click on screen to exit ...')
         screen.exitonclick()
-    
 
 
 def iss_over_indy(screen):
@@ -65,7 +66,6 @@ def iss_over_indy(screen):
     kenzie_turtle.color("yellow", "yellow")
     kenzie_turtle.penup()
     kenzie_turtle.goto(kenzie_longi, kenzie_lat)
-    kenzie_turtle.pendown()
     kenzie_turtle.write(pass_time, align=("left"), font=(30))
     kenzie_turtle.penup()
 
